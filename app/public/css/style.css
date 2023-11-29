@@ -1,0 +1,104 @@
+:root {
+  --primary: #00a2ffc2; 
+  --primary-hov: #00a2ff; 
+}
+
+.btn {
+    transition: background-color 0.3s ease !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: var(--primary-hov);
+    border-color: var(--primary);
+}
+
+.app-style-link {
+    transition: text-decoration-color 0.3s ease;
+}
+
+.app-style-link:hover {
+    text-decoration-color: rgb(13, 109, 253, 0.75) !important;
+}
+
+
+label.required:after {
+    content: "*";
+    font-weight: bold;
+    margin-left: 2px; 
+}
+
+.marked {
+    padding: 10px; 
+    border-radius: 6px; 
+}
+
+/* Add/delete record */
+button.addRecord {
+    color: gray; 
+    font-size: 24px; 
+    background:none;
+    position: relative;
+    left: -2px;
+}
+
+button.deleteRecord {
+    color: gray; 
+    font-size: 18px; 
+    background:none;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.fade-out {
+  opacity: 1;
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Select language */
+.flag-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* .dropdown-menu {
+    display: relative !important;
+} */
+
+
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 60px;
+    right: 40px;
+    display: none;
+    background-color: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#scrollToTopBtn:hover {
+    background-color: var(--primary-hov);
+}

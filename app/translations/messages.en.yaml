@@ -1,0 +1,32 @@
+form:
+  settings:
+    title: Settings
+    get_response: 
+      title: Sync with GetResponse
+      api_key: API key
+      api_desc: To receive the key you need to register on the GetResponse website. After registration, go to Tools >> Integrations and API >> API and generate the key "Generate API key".
+      list: List of sync
+      fields:
+        title: Fields to sync
+        entity: Entity
+        entity_values:
+          lead: Lead
+          contact: Contact
+          company: Company
+        field_bitrix: Field B24
+        field_getresponse: Field GR
+    bitrix:
+      title: Sync with Bitrix24
+      hook_url: Webhook
+      hook_desc: To add a webhook to GetResponse go to Tools >> Webhooks and create a new webhook "Create webhook".
+      copy: Copy
+      pipeline: Pipeline of sync
+      events: 
+        title: Events to sync
+        event: Event
+        event_values:
+          link_clicked: Link clicked
+          message_opened: Message opened
+          contact_unsubscribed: Contact unsubscribed
+        stage: Stage
+    submit: Save

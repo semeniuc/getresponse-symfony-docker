@@ -1,0 +1,31 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th class="col-md-1"></th>
+            <th class="col-md-3">Entity</th>
+            <th class="col-md-4">Field B24</th>
+            <th class="col-md-4">Field GR</th>
+        </tr>
+    </thead>
+    <tbody id="tableFields">
+    {% for field in form.fields %}
+    <tr>
+        <td>
+            <button class="deleteRecord border border-0" type="button" onclick="deleteRecord(this)">
+                <i class="bi bi-trash"></i>
+            </button>
+        </td>
+        <td>{{ form_row(field.entity) }}</td>
+        <td>{{ form_row(field.fieldB24) }}</td>
+        <td>{{ form_row(field.fieldGR) }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td class="border border-0">
+            <button class="addRecord border border-0 mt-1" type="button" onclick="addRecord('tableFields')">
+                <i class="bi bi-plus"></i>
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>

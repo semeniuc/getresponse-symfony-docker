@@ -1,0 +1,49 @@
+<div class="row p-3">
+    {# Logo GetResponse #}
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-auto">
+                <a href="https://beupsoft.pl/" class="" target="_blank">
+                    <img src="{{ asset('images/logo_app.svg') }}" class="img-fluid" alt="GetResponse">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row d-md-flex justify-content-md-end align-items-center">
+            {# Type license #}
+            <div class="col-md-auto d-md-flex justify-content-md-end">
+                <span>
+                    Type license: 
+                    <mark class="marked">trial</mark>
+                </span>
+            </div>
+            
+            {# License end date #}
+            <div class="col-md-auto d-md-flex justify-content-md-end">
+                <span>
+                    License end date: 
+                    <mark class="marked">2023-12-31</mark>
+                </span>
+            </div>
+
+            {# Buy a license #}
+            <div class="col-md-auto d-md-flex justify-content-md-end">
+                <a href="https://beupsoft.pl/store/" class="btn btn-primary" target="_blank">
+                    Buy a license
+                </a>
+            </div>
+
+            {# Change language #}
+            <div class="col-md-auto d-md-flex justify-content-md-end">
+                {{ form_start(locale, {'action': path('set_locale')}) }}
+                {{ form_widget(locale.select, 
+                    {'attr': 
+                        {'class': 'form-control', 'onchange': 'this.form.submit()' }
+                        })
+                    }}
+                {{ form_end(locale) }}
+            </div>
+        </div>
+    </div>
+</div>

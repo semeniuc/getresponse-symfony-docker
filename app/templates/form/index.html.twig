@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Integration Bitrix24 with GetResponse by BeUp Soft{% endblock %}
+
+{% block body %}
+    <div class="container d-flex align-items-center justify-content-center mt-5 mb-5">
+        <div class="col-md-12">
+            <div class="card border border-white rounded-1 shadow">
+                <div class="card-body p-5">
+                    {# Header #}
+                    {% include 'form/_header.html.twig' %}
+
+                    {# Title #}
+                   <div class="row p-1">
+                        <div class="col-md-12 text-center">
+                            <h3>{% block articleTitle %}{{ 'form.settings.title'|trans }}{% endblock %}</h3>
+                        </div>
+                   </div>
+
+                    {# Form #}
+                    {{ form_start(form, {'action': path('set_settings')}) }}
+                    {# Line 1 #}
+                    <div class="row p-3">
+                        <div class="col-md-6">
+                            {# Section title #}
+                            <div>
+                                <h5>Sync with GetResponse</h5>
+                                <hr>
+                            </div>
+                            
+                            {# Api key #}
+                            <div class="form-group mb-2">
+                                {{ form_label(form.api_key, 
+                                    'form.settings.get_response.api_key'|trans, 
+                                    {'label_attr': 
+                                        {'class': 'form-label'}
+                                    }) 
+                                }} 
+                                {{ form_widget(form.api_key, 
+                                    {'attr': 
+                                        {'class': 'form-control bg-light'}
+                                    }) 
+                                }}
+                            </div>
+
+                            {# Api key description #}
+                            <div class="mb-2 alert alert-info" role="alert">
+                                <small class="form-text text-muted">
+                                    To receive the key you need to register on the <a href="https://www.getresponse.com/?a=JdeCfVrgkm" class="alert-link" target="_blank">GetResponse website</a>.<br>
+                                    After registration, go to <a href="https://app.getresponse.com/api" class="alert-link" target="_blank">
+                                    Tools >> Integrations and API >> API</a> and generate the key "Generate API key".
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            {# Section title #}
+                            <div>
+                                <h5>Sync with Bitrix24</h5>
+                                <hr>
+                            </div>
+
+                            {# Webhook #}
+                            <div class="form-group mb-2">
+                                {{ form_label(form.hook_url, 
+                                    'form.settings.bitrix.hook_url'|trans, 
+                                    {'label_attr': 
+                                        {'class': 'form-label'}
+                                    }) 
+                                }}
+                                <div class="input-group">
+                                    {{ form_widget(form.hook_url, 
+                                        {'attr': 
+                                            {'class': 'form-control bg-light', 'disabled': 'disabled'}
+                                        })
+                                    }}
+                                    <button class="btn btn-outline-secondary" type="button" onclick="copyText()">Copy</button>
+                                </div>
+                            </div>
+
+                            {# Webhook description #}
+                            <div class="col-md-12 mb-2 alert alert-secondary" role="alert">
+                                <small class="form-text text-muted">
+                                    To add a webhook to GetResponse go to 
+                                    <a href="https://app.getresponse.com/webhooks/manage" class="alert-link" target="_blank">Tools >> Webhooks</a> 
+                                    and create a new webhook "Create webhook".<br>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Line 2 #}
+                    <div class="row p-3">
+                        {# List #}
+                        <div class="col-md-6">
+                            <div class="form-group mb-2 col-md-6">
+                                {{ form_label(form.list, 
+                                    'form.settings.get_response.list'|trans,
+                                    {'label_attr': 
+                                        {'class': 'form-label'}
+                                    }) 
+                                }}
+                                {{ form_widget(form.list, 
+                                    {'attr': 
+                                        {'class': 'form-control form-select bg-light'}
+                                    }) 
+                                }}
+                            </div>
+                        </div>
+
+                        {# Pipeline #}
+                        <div class="col-md-6">
+                            <div class="form-group mb-2 col-md-6">
+                                {{ form_label(form.pipeline, 
+                                    'form.settings.bitrix.pipeline'|trans, 
+                                    {'label_attr': 
+                                        {'class': 'form-label'}
+                                    })
+                                }}
+                                {{ form_widget(form.pipeline, 
+                                    {'attr': 
+                                        {'class': 'form-control form-select bg-light'}
+                                    })
+                                }}
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Line 3 #}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Fields to sync</p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <p>Events to sync</p>
+                        </div>
+                    </div>
+                    <div class="row p-3">
+                        {# Fields #}
+                        <div class="col-md-6">
+                            {% include 'form/_field_row.html.twig' %}
+                        </div>
+
+                        {# Events #}
+                        <div class="col-md-6">
+                           {% include 'form/_event_row.html.twig' %}
+                        </div>
+                    </div>
+
+                   {# Submit #}
+                   <div class="row p-3">
+                        <div class="col-md-12 d-md-flex justify-content-md-end">
+                            <div class="form-group">
+                                {{ form_label(form.submit, 'form.settings.submit'|trans) }}
+                                {{ form_widget(form.submit, 
+                                    {'attr': 
+                                        {'class': 'btn btn-outline-secondary px-4 form-control'}
+                                    })
+                                }}
+                            </div>
+                        </div>
+                   </div>
+                   {{ form_end(form) }}
+
+                   {# Footer #}
+                    {% include 'form/_footer.html.twig' %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

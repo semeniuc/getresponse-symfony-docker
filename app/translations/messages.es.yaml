@@ -1,0 +1,32 @@
+form:
+  settings:
+    title: Ajustes
+    get_response: 
+      title: Sincronizar con GetResponse
+      api_key: Clave API
+      api_desc: Para recibir la clave, debe registrarse en el sitio web GetResponse. Después del registro, vaya a Herramientas >> Integraciones y API >> API y genere la clave "Generar clave API".
+      list: Lista de sincronización
+      fields:
+        title: Campos para sincronizar
+        entity: Entidad
+        entity_values:
+          lead: Prospecto
+          contact: Contacto
+          company: Compañía
+        field_bitrix: Campo B24
+        field_getresponse: Campo GR
+    bitrix:
+      title: Sincronizar con Bitrix24
+      hook_url: Webhook
+      hook_desc: Para agregar un webhook a GetResponse, vaya a Herramientas >> Webhooks y cree un nuevo webhook "Crear webhook".
+      copy: Copiar
+      pipeline: Pipeline de sincronización
+      events: 
+        title: Eventos para sincronizar
+        event: Event
+        event_values:
+          message_opened: Correo electrónico abierto
+          link_clicked: Enlace hecho clic
+          contact_unsubscribed: El contacto se ha dado de baja
+        stage: Etapa
+    submit: Ahorrar
