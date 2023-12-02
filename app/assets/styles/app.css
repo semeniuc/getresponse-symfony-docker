@@ -1,5 +1,9 @@
+/* Import */
 @import "~bootstrap/dist/css/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 
+
+/* Custom css */
 :root {
   --primary: #00a2ffc2; 
   --primary-hov: #00a2ff; 
