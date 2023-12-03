@@ -15,8 +15,6 @@
                         </div>
                     </div>
 
-                    {% include 'test/_stimulus.html.twig' %}
-
                     {# Form #}
                     {{ form_start(form, {'action': path('test_set_settings')}) }}
                     {# Line 1 #}
@@ -68,13 +66,17 @@
                                         {'class': 'form-label'}
                                     }) 
                                 }}
-                                <div class="input-group">
+                                <div class="input-group" {{ stimulus_controller('clipboard') }}>
                                     {{ form_widget(form.hook_url, 
                                         {'attr': 
-                                            {'class': 'form-control bg-light', 'disabled': 'disabled'}
+                                            {
+                                                'class': 'form-control bg-light', 'disabled': 'disabled',
+                                                'data-clipboard-target': 'hook'
+                                            }
                                         })
                                     }}
-                                    <button class="btn btn-outline-secondary" type="button" onclick="copyText()">Copy</button>
+                                    
+                                    <button class="btn btn-outline-secondary" type="button" {{ stimulus_action('clipboard', 'copy') }}>Copy</button>
                                 </div>
                             </div>
 
