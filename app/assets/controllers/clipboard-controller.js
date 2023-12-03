@@ -2,8 +2,8 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
     static targets = ['hook']
-    copy() {
+    copy(event) {
+        event.preventDefault()
         navigator.clipboard.writeText(this.hookTarget.value)
-        console.log('Success copy!', this.hookTarget);
     }
 }
