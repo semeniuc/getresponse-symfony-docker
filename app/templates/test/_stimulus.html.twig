@@ -1,3 +1,5 @@
 <div {{ stimulus_controller('hello') }}>
-    
+    <input type="text" {{ stimulus_target('hello', 'name') }}>
+    <button {{ stimulus_action('hello', 'greet') }}>Run</button>
+    <div {{ stimulus_target('hello', 'output') }}></div>
 </div>
