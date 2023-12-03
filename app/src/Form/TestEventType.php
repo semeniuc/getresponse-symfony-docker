@@ -15,10 +15,12 @@ class TestEventType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'choices' => $options['type_choices'] ?? [],
                 'label' => false,
+                'autocomplete' => true,
             ])
             ->add('stage', ChoiceType::class, [
                 'choices' => $options['stage_choices'] ?? [],
                 'label' => false,
+                'autocomplete' => true,
             ])
         ;
     }

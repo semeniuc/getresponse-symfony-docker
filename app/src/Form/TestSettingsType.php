@@ -20,9 +20,11 @@ class TestSettingsType extends AbstractType
             ->add('hook_url', UrlType::class)
             ->add('list', ChoiceType::class, [
                 'choices' => $options['list_choices'] ?? [],
+                'autocomplete' => true,
             ])
             ->add('pipeline', ChoiceType::class, [
                 'choices' => $options['pipeline_choices'] ?? [],
+                'autocomplete' => true,
             ])
             ->add('events', CollectionType::class, [
                 'entry_type' => TestEventType::class,
