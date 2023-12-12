@@ -6,7 +6,10 @@
            <th class="col-md-5">Stage</th>
        </tr>
    </thead>
-   <tbody {{ stimulus_controller('collection') }}>
+   <tbody {{ stimulus_controller('collection') }} 
+        data-collection-index-value="{{ form.events|length > 0 ? form.events|last.vars.name + 1 : 0 }}"
+        data-collection-prototype-value="{{ form_widget(form.events.vars.prototype)|e('html_attr') }}"
+   >
    {% for event in form.events %}
    <tr >
        <td>
@@ -17,13 +20,13 @@
        <td>{{ form_row(event.type, {
             attr: {
                 'class': 'form-select bg-light',
-                'data-clipboard-target': 'type'
+                'data-collection-target': 'type'
             }
        }) }}</td>
        <td>{{ form_row(event.stage, {
             attr: {
                 'class': 'form-select bg-light',
-                'data-clipboard-target': 'stage'
+                'data-collection-target': 'stage'
             }
        }) }}</td>
    </tr>
