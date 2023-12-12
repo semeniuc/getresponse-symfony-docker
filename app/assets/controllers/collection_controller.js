@@ -43,11 +43,12 @@ export default class extends Controller {
 
     delete(event) {
         event.preventDefault();
-        const row = event.target.closest('tr');
-        row.classList.add('fade-out');
+
+        const tr = event.target.closest('tr');
+        tr.classList.add('fade-out');
 
         setTimeout(() => {
-            row.remove();
+            tr.remove();
         }, 500);
     }
 }
