@@ -6,34 +6,34 @@
            <th class="col-md-5">Stage</th>
        </tr>
    </thead>
-   <tbody {{ stimulus_controller('collection') }} 
-        data-collection-index-value="{{ form.events|length > 0 ? form.events|last.vars.name + 1 : 0 }}"
-        data-collection-prototype-value="{{ form_widget(form.events.vars.prototype)|e('html_attr') }}"
+   <tbody {{ stimulus_controller('event-collection') }} 
+        data-event-collection-index-value="{{ form.events|length > 0 ? form.events|last.vars.name + 1 : 0 }}"
+        data-event-collection-prototype-value="{{ form_widget(form.events.vars.prototype)|e('html_attr') }}"
    >
    {% for event in form.events %}
    <tr >
        <td>
-           <button class="deleteRecord border border-0" type="button" {{ stimulus_action('collection', 'delete') }}>
+           <button class="deleteRecord border border-0" type="button" {{ stimulus_action('event-collection', 'delete') }}>
                <i class="bi bi-trash"></i>
            </button>
        </td>
        <td>{{ form_row(event.type, {
             attr: {
                 'class': 'form-select bg-light',
-                'data-collection-target': 'type'
+                'data-event-collection-target': 'type'
             }
        }) }}</td>
        <td>{{ form_row(event.stage, {
             attr: {
                 'class': 'form-select bg-light',
-                'data-collection-target': 'stage'
+                'data-event-collection-target': 'stage'
             }
        }) }}</td>
    </tr>
    {% endfor %}
    <tr>
        <td class="border border-0">
-           <button class="addRecord border border-0 mt-1" type="button" {{ stimulus_action('collection', 'add') }}>
+           <button class="addRecord border border-0 mt-1" type="button" {{ stimulus_action('event-collection', 'add') }}>
                <i class="bi bi-plus"></i>
            </button>
        </td>
