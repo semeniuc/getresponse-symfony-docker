@@ -38,7 +38,6 @@ export default class extends Controller {
 
         // Add tr
         tbody.insertBefore(tr, tbody.lastElementChild);
-
         this.indexValue++;
     }
 
