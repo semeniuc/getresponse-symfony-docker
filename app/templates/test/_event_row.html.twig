@@ -6,30 +6,31 @@
            <th class="col-md-5">Stage</th>
        </tr>
    </thead>
-   <tbody id="tableEvents">
+   <tbody {{ stimulus_controller('collection') }}>
    {% for event in form.events %}
-   <tr>
+   <tr >
        <td>
-           <button class="deleteRecord border border-0" type="button" onclick="deleteRecord(this)">
+           <button class="deleteRecord border border-0" type="button" {{ stimulus_action('collection', 'delete') }}>
                <i class="bi bi-trash"></i>
            </button>
-           {# {{ form_row(event.vars.button_delete, {label: 'X', attr: {class: 'btn btn-outline-danger'}}) }} #}
        </td>
        <td>{{ form_row(event.type, {
             attr: {
-                class: 'form-select bg-light'
+                'class': 'form-select bg-light',
+                'data-clipboard-target': 'type'
             }
        }) }}</td>
        <td>{{ form_row(event.stage, {
             attr: {
-                class: 'form-select bg-light'
+                'class': 'form-select bg-light',
+                'data-clipboard-target': 'stage'
             }
        }) }}</td>
    </tr>
    {% endfor %}
    <tr>
        <td class="border border-0">
-           <button class="addRecord border border-0 mt-1" type="button" onclick="addRecord('tableEvents')">
+           <button class="addRecord border border-0 mt-1" type="button" {{ stimulus_action('collection', 'add') }}>
                <i class="bi bi-plus"></i>
            </button>
        </td>
