@@ -14,28 +14,25 @@ class EventType extends AbstractType
         $builder
             ->add('type', ChoiceType::class, [
                 'choices' => $options['type_choices'] ?? [],
-                'required' => true,
+                'label' => false,
+                'autocomplete' => true,
             ])
             ->add('stage', ChoiceType::class, [
                 'choices' => $options['stage_choices'] ?? [],
-                'required' => true,
+                'label' => false,
+                'autocomplete' => true,
             ])
-            ;
-
-        // Logging
-        dump([
-            'options' => $options,
-            'getOptions' => $builder->getOptions(),
-            'getFormConfig' => $builder->getFormConfig(),
-        ]);
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => null,
             'type_choices' => [],
             'stage_choices' => [],
         ]);
+
+        $resolver->setAllowedTypes('type_choices', 'array');
+        $resolver->setAllowedTypes('stage_choices', 'array');
     }
 }

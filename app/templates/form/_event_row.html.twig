@@ -1,29 +1,43 @@
- <table class="table">
-    <thead>
-        <tr>
-            <th class="col-md-1"></th>
-            <th class="col-md-5">Event</th>
-            <th class="col-md-5">Stage</th>
-        </tr>
-    </thead>
-    <tbody id="tableEvents">
-    {% for row in form.events %}
-    <tr>
-        <td>
-            <button class="deleteRecord border border-0" type="button" onclick="deleteRecord(this)">
-                <i class="bi bi-trash"></i>
-            </button>
-        </td>
-        <td>{{ form_row(row.event) }}</td>
-        <td>{{ form_row(row.stage) }}</td>
-    </tr>
-    {% endfor %}
-    <tr>
-        <td class="border border-0">
-            <button class="addRecord border border-0 mt-1" type="button" onclick="addRecord('tableEvents')">
-                <i class="bi bi-plus"></i>
-            </button>
-        </td>
-    </tr>
-    </tbody>
+<table class="table">
+   <thead>
+       <tr>
+           <th class="col-md-1"></th>
+           <th class="col-md-5">Event</th>
+           <th class="col-md-5">Stage</th>
+       </tr>
+   </thead>
+   <tbody {{ stimulus_controller('event-collection') }} 
+        data-event-collection-index-value="{{ form.events|length > 0 ? form.events|last.vars.name + 1 : 0 }}"
+        data-event-collection-prototype-value="{{ form_widget(form.events.vars.prototype)|e('html_attr') }}"
+   >
+   {% for event in form.events %}
+   <tr >
+       <td>
+           <button class="deleteRecord border border-0" type="button" {{ stimulus_action('event-collection', 'delete') }}>
+               <i class="bi bi-trash"></i>
+           </button>
+       </td>
+       <td>{{ form_row(event.type, {
+            attr: {
+                'class': 'form-select bg-light',
+                'data-event-collection-target': 'type'
+            }
+       }) }}</td>
+       <td>{{ form_row(event.stage, {
+            attr: {
+                'class': 'form-select bg-light',
+                'data-event-collection-target': 'stage'
+            }
+       }) }}</td>
+   </tr>
+   {% endfor %}
+   <tr>
+       <td class="border border-0">
+           <button class="addRecord border border-0 mt-1" type="button" {{ stimulus_action('event-collection', 'add') }}>
+               <i class="bi bi-plus"></i>
+           </button>
+       </td>
+   </tr>
+   
+   </tbody>
 </table>

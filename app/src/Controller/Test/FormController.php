@@ -39,6 +39,11 @@ class FormController extends AbstractController
                     ['type' => 'event_1', 'stage' => 'stage_3'],
                     ['type' => 'event_3', 'stage' => 'stage_2'],
                 ],
+                'fields' => [
+                    ['entity' => 1, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
+                    ['entity' => 3, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
+                    ['entity' => 4, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
+                ],
             ],
             options: [
                 'list_choices' => [
@@ -61,11 +66,26 @@ class FormController extends AbstractController
                     'Stage 2' => 'stage_2',
                     'Stage 3' => 'stage_3',
                 ],
+                'field_entity_choices' => [
+                    'Lead' => 1,
+                    'Contact' => 3,
+                    'Company' => 4,
+                ],
+                'field_bitrix_choices' => [
+                    'Email' => 'field_1',
+                    'Phone' => 'field_2',
+                    'Name'  => 'field_3',
+                ],
+                'field_getresponse_choices' => [
+                    'E-mail' => 'field_1',
+                    'Number phone' => 'field_2',
+                    'Title' => 'field_3',
+                ],
             ],
         );
 
         // Render
-        return $this->render('test/index.html.twig', [
+        return $this->render('form/index.html.twig', [
             'lang_page' => 'pl',
             // 'locale'=> $formLocaleView,
             'form' => $formSettingsView,
