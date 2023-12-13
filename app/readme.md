@@ -11,7 +11,7 @@ Client
 
 Access 
     id 
-    client               (Client > id) one to one
+    client                  (Client > id) one to one
     bitrix_token
     bitrix_refresh_token
     bitrix_expires_token
@@ -19,7 +19,7 @@ Access
     app_token
     executed_at
 
-Category
+Section
     id 
     client                  (Client > id) one to one
     getresponse             (list of sync)
@@ -29,14 +29,17 @@ Category
 Field
     id
     client                  (Client > id) many to one
+    section                 (Category > getresponse) many to one
     entity
     bitrix
     getresponse
     executed_at
+executed_at
 
 Event
     id 
     client                  (Client > id) many to one
+    section                 (Category > bitrix) many to one
     type
     stage
     executed_at

@@ -37,6 +37,9 @@ class Client
     #[ORM\OneToOne(mappedBy: 'clientId', cascade: ['persist', 'remove'])]
     private ?Access $access = null;
 
+    #[ORM\OneToOne(mappedBy: 'client', cascade: ['persist', 'remove'])]
+    private ?Section $section = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -139,6 +142,23 @@ class Client
         }
 
         $this->access = $access;
+
+        return $this;
+    }
+
+    public function getSection(): ?Section
+    {
+        return $this->section;
+    }
+
+    public function setSection(Section $section): static
+    {
+        // set the owning side of the relation if necessary
+        if ($section->getClient() !== $this) {
+            $section->setClient($this);
+        }
+
+        $this->section = $section;
 
         return $this;
     }
