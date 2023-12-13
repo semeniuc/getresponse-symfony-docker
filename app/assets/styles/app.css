@@ -85,26 +85,3 @@ button.deleteRecord {
   width: 20px;
   height: 20px;
 }
-
-/* .dropdown-menu {
-    display: relative !important;
-} */
-
-
-#scrollToTopBtn {
-    position: fixed;
-    bottom: 60px;
-    right: 40px;
-    display: none;
-    background-color: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#scrollToTopBtn:hover {
-    background-color: var(--primary-hov);
-}
