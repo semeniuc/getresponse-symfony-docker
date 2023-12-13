@@ -7,6 +7,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use App\Entity\Field;
+
 class FieldType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -30,25 +32,7 @@ class FieldType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'entity' => [
-                'entity_1' => 'entity_1',
-                'entity_2' => 'entity_2',
-                'entity_3' => 'entity_3',
-            ],
-            'field_bitrix24' => [
-                'field_1' => 'field_1',
-                'field_2' => 'field_2',
-                'field_3' => 'field_3',
-            ],
-            'field_getresponse' => [
-                'field_1' => 'field_1',
-                'field_2' => 'field_2',
-                'field_3' => 'field_3',
-            ],
+            'data_class' => Field::class,
         ]);
-
-        $resolver->setAllowedTypes('entity', 'array');
-        $resolver->setAllowedTypes('field_bitrix24', 'array');
-        $resolver->setAllowedTypes('field_getresponse', 'array');
     }
 }
