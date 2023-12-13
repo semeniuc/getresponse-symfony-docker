@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Test;
 
 use App\Service\Bitrix\BuilderCoreService;
 use App\Service\Bitrix\Entity\EntityService;

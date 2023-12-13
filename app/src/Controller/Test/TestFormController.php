@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Test;
 
-use App\Form\TestEventType;
-use App\Form\TestSettingsType;
+use App\Form\Test\TestEventType;
+use App\Form\Test\TestSettingsType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
