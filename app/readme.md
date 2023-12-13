@@ -1,6 +1,6 @@
 # Structure tables
 Client
-    id                      (client_id)
+    id                      (client_id) 
     bitrix_id
     bitrix_domain
     bitrix_plan
@@ -11,7 +11,7 @@ Client
 
 Access 
     id 
-    client_id               (Client > id)
+    client_id               (Client > id) one to one
     bitrix_token
     bitrix_refresh_token
     bitrix_expires_token
@@ -21,14 +21,14 @@ Access
 
 Category
     id 
-    client_id               (Client > id)
+    client_id               (Client > id) one to one
     getresponse             (list of sync)
     bitrix                  (pipeline of sync)
     executed_at
 
 Field
     id
-    client_id               (Client > id)
+    client_id               (Client > id) many to one
     entity
     bitrix
     getresponse
@@ -36,7 +36,7 @@ Field
 
 Event
     id 
-    client_id               (Client > id)
+    client_id               (Client > id) many to one
     type
     stage
     executed_at
