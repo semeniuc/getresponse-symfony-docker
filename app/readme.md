@@ -22,14 +22,14 @@ Access
 Section
     id 
     client                  (Client > id) one to one
-    getresponse             (list of sync)
-    bitrix                  (pipeline of sync)
+    list                    (getresponse list of sync)
+    pipeline                (bitrix pipeline of sync)
     executed_at
 
 Field
     id
     client                  (Client > id) many to one
-    section                 (Category > getresponse) many to one
+    list                    (Section > id > list) many to one
     entity
     bitrix
     getresponse
@@ -38,7 +38,7 @@ Field
 Event
     id 
     client                  (Client > id) many to one
-    section                 (Category > bitrix) many to one
+    pipeline                (Section > id > pipeline) many to one
     type
     stage
     executed_at

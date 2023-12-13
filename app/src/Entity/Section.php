@@ -20,10 +20,10 @@ class Section
     private ?Client $client = null;
 
     #[ORM\Column(length: 20, nullable: true)]
-    private ?string $getresponse = null;
+    private ?string $list = null;
 
     #[ORM\Column(length: 20, nullable: true)]
-    private ?string $bitrix = null;
+    private ?string $pipeline = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $executedAt = null;
@@ -31,9 +31,13 @@ class Section
     #[ORM\OneToMany(mappedBy: 'section', targetEntity: Field::class, orphanRemoval: true)]
     private Collection $fields;
 
+    #[ORM\OneToMany(mappedBy: 'section', targetEntity: Event::class, orphanRemoval: true)]
+    private Collection $events;
+
     public function __construct()
     {
         $this->fields = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,26 +57,26 @@ class Section
         return $this;
     }
 
-    public function getGetresponse(): ?string
+    public function getList(): ?string
     {
-        return $this->getresponse;
+        return $this->list;
     }
 
-    public function setGetresponse(?string $getresponse): static
+    public function setList(?string $list): static
     {
-        $this->getresponse = $getresponse;
+        $this->list = $list;
 
         return $this;
     }
 
-    public function getBitrix(): ?string
+    public function getPipeline(): ?string
     {
-        return $this->bitrix;
+        return $this->pipeline;
     }
 
-    public function setBitrix(?string $bitrix): static
+    public function setPipeline(?string $pipeline): static
     {
-        $this->bitrix = $bitrix;
+        $this->pipeline = $pipeline;
 
         return $this;
     }
@@ -113,6 +117,36 @@ class Section
             // set the owning side to null (unless already changed)
             if ($field->getSection() === $this) {
                 $field->setSection(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): static
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->setSection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): static
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getSection() === $this) {
+                $event->setSection(null);
             }
         }
 

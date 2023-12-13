@@ -45,9 +45,13 @@ class Client
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Field::class, orphanRemoval: true)]
     private Collection $fields;
 
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Event::class, orphanRemoval: true)]
+    private Collection $events;
+
     public function __construct()
     {
         $this->fields = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,6 +201,36 @@ class Client
             // set the owning side to null (unless already changed)
             if ($field->getClient() === $this) {
                 $field->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): static
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): static
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getClient() === $this) {
+                $event->setClient(null);
             }
         }
 
