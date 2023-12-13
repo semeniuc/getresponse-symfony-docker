@@ -8,7 +8,7 @@
             <div class="card border border-white rounded-1 shadow">
                 <div class="card-body p-5">
                     {# Header #}
-                    {# {% include 'form/_header.html.twig' %} #}
+                    {% include 'form/_header.html.twig' %}
 
                     {# Title #}
                    <div class="row p-1">
@@ -68,13 +68,17 @@
                                         {'class': 'form-label'}
                                     }) 
                                 }}
-                                <div class="input-group">
+                                <div class="input-group" {{ stimulus_controller('clipboard') }}>
                                     {{ form_widget(form.hook_url, 
                                         {'attr': 
-                                            {'class': 'form-control bg-light', 'disabled': 'disabled'}
+                                            {
+                                                'class': 'form-control bg-light', 'disabled': 'disabled',
+                                                'data-clipboard-target': 'hook'
+                                            }
                                         })
                                     }}
-                                    <button class="btn btn-outline-secondary" type="button" onclick="copyText()">Copy</button>
+                                    
+                                    <button class="btn btn-outline-secondary" type="button" {{ stimulus_action('clipboard', 'copy') }}>Copy</button>
                                 </div>
                             </div>
 

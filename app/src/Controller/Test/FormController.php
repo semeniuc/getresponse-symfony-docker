@@ -19,13 +19,13 @@ class FormController extends AbstractController
     public function index(Request $request): Response
     {
         // Put data in form locale
-        // $formLocaleView = $this->createForm(type: LocaleType::class, options: [
-        //     'select' => [
-        //         'Pl' => 'pl',
-        //         'En' => 'en',
-        //         'Es' => 'es',
-        //     ],
-        // ]);
+        $formLocaleView = $this->createForm(type: LocaleType::class, options: [
+            'select' => [
+                'Pl' => 'pl',
+                'En' => 'en',
+                'Es' => 'es',
+            ],
+        ]);
 
         // Put data in form settings
         $formSettingsView = $this->createForm(
@@ -87,7 +87,7 @@ class FormController extends AbstractController
         // Render
         return $this->render('form/index.html.twig', [
             'lang_page' => 'pl',
-            // 'locale'=> $formLocaleView,
+            'locale'=> $formLocaleView,
             'form' => $formSettingsView,
         ]);
     }
