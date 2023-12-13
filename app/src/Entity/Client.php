@@ -34,6 +34,9 @@ class Client
     #[ORM\Column]
     private ?\DateTimeImmutable $executedAt = null;
 
+    #[ORM\OneToOne(mappedBy: 'clientId', cascade: ['persist', 'remove'])]
+    private ?Access $access = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +122,23 @@ class Client
     public function setExecutedAt(\DateTimeImmutable $executedAt): static
     {
         $this->executedAt = $executedAt;
+
+        return $this;
+    }
+
+    public function getAccess(): ?Access
+    {
+        return $this->access;
+    }
+
+    public function setAccess(Access $access): static
+    {
+        // set the owning side of the relation if necessary
+        if ($access->getClientId() !== $this) {
+            $access->setClientId($this);
+        }
+
+        $this->access = $access;
 
         return $this;
     }
