@@ -34,7 +34,6 @@ Field
     bitrix
     getresponse
     executed_at
-executed_at
 
 Event
     id 

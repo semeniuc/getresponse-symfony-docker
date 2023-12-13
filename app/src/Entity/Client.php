@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
@@ -39,6 +41,14 @@ class Client
 
     #[ORM\OneToOne(mappedBy: 'client', cascade: ['persist', 'remove'])]
     private ?Section $section = null;
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Field::class, orphanRemoval: true)]
+    private Collection $fields;
+
+    public function __construct()
+    {
+        $this->fields = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -159,6 +169,36 @@ class Client
         }
 
         $this->section = $section;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Field>
+     */
+    public function getFields(): Collection
+    {
+        return $this->fields;
+    }
+
+    public function addField(Field $field): static
+    {
+        if (!$this->fields->contains($field)) {
+            $this->fields->add($field);
+            $field->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeField(Field $field): static
+    {
+        if ($this->fields->removeElement($field)) {
+            // set the owning side to null (unless already changed)
+            if ($field->getClient() === $this) {
+                $field->setClient(null);
+            }
+        }
 
         return $this;
     }
