@@ -8,8 +8,8 @@
         </tr>
     </thead>
     <tbody {{ stimulus_controller('field-collection') }} 
-        data-event-collection-index-value="{{ form.fields|length > 0 ? form.fields|last.vars.name + 1 : 0 }}"
-        data-event-collection-prototype-value="{{ form_widget(form.fields.vars.prototype)|e('html_attr') }}"
+        data-field-collection-index-value="{{ form.fields|length > 0 ? form.fields|last.vars.name + 1 : 0 }}"
+        data-field-collection-prototype-value="{{ form_widget(form.fields.vars.prototype)|e('html_attr') }}"
    >
     {% for field in form.fields %}
     <tr>
@@ -21,19 +21,19 @@
         <td>{{ form_row(field.entity, {
             attr: {
                 'class': 'form-select bg-light',
-                'data-event-collection-target': 'entity'
+                'data-field-collection-target': 'entity'
             }
        }) }}</td>
        <td>{{ form_row(field.bitrix, {
             attr: {
                 'class': 'form-select bg-light',
-                'data-event-collection-target': 'bitrix'
+                'data-field-collection-target': 'bitrix'
             }
        }) }}</td>
        <td>{{ form_row(field.getresponse, {
             attr: {
                 'class': 'form-select bg-light',
-                'data-event-collection-target': 'getresponse'
+                'data-field-collection-target': 'getresponse'
             }
        }) }}</td>
     </tr>
