@@ -137,8 +137,8 @@ class Client
     public function setAccess(Access $access): static
     {
         // set the owning side of the relation if necessary
-        if ($access->getClientId() !== $this) {
-            $access->setClientId($this);
+        if ($access->getClient() !== $this) {
+            $access->setClient($this);
         }
 
         $this->access = $access;
