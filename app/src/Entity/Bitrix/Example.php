@@ -1,13 +1,6 @@
 <?php
 
-namespace App\Entity\Bitrix;
-
-use App\Repository\Bitrix\ClientRepository;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: ClientRepository::class)]
-class Client
+class Examle
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
