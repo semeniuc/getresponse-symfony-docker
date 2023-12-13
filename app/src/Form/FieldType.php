@@ -13,7 +13,7 @@ class FieldType extends AbstractType
     {
         $builder
             ->add('entity', ChoiceType::class, [
-               'choices' => $options['entity_choices'],
+                'choices' => $options['entity_choices'],
                 'label' => false,
                 'autocomplete' => true,
             ])
