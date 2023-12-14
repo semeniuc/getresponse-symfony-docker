@@ -11,7 +11,7 @@
                     {% include 'form/_header.html.twig' %}
 
                     {# Title #}
-                   <div class="row p-1">
+                   <div class="row p-1" {{ stimulus_controller('fade') }}>
                         <div class="col-md-12 text-center">
                             <h3>{% block articleTitle %}{{ 'form.settings.title'|trans }}{% endblock %}</h3>
                         </div>
