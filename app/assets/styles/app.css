@@ -67,7 +67,7 @@ button.deleteRecord {
 
 .fade-out {
   opacity: 1;
-  animation: fadeOut 0.5s forwards;
+  animation: fadeOut 0.3s forwards;
 }
 
 @keyframes fadeIn {

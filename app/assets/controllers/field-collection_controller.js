@@ -47,12 +47,9 @@ export default class extends Controller {
         const tr = event.target.closest('tr');
         tr.classList.toggle('fade-out', true);
         if (tr) {
-            setTimeout(
-                () => {
-                    tr.remove();
-                },
-                300
-            );
+            tr.addEventListener('animationend', () => {
+                tr.remove();
+            }, { once: true });
         }
     }
 }
