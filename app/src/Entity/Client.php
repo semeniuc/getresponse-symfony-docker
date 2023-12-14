@@ -29,6 +29,12 @@ class Client
     #[ORM\Column]
     private ?\DateTimeImmutable $executedAt = null;
 
+    #[ORM\OneToOne(mappedBy: 'client', cascade: ['persist', 'remove'])]
+    private ?Getresponse $getresponse = null;
+
+    #[ORM\OneToOne(mappedBy: 'client', cascade: ['persist', 'remove'])]
+    private ?Section $section = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +96,40 @@ class Client
     public function setExecutedAt(\DateTimeImmutable $executedAt): static
     {
         $this->executedAt = $executedAt;
+
+        return $this;
+    }
+
+    public function getGetresponse(): ?Getresponse
+    {
+        return $this->getresponse;
+    }
+
+    public function setGetresponse(Getresponse $getresponse): static
+    {
+        // set the owning side of the relation if necessary
+        if ($getresponse->getClient() !== $this) {
+            $getresponse->setClient($this);
+        }
+
+        $this->getresponse = $getresponse;
+
+        return $this;
+    }
+
+    public function getSection(): ?Section
+    {
+        return $this->section;
+    }
+
+    public function setSection(Section $section): static
+    {
+        // set the owning side of the relation if necessary
+        if ($section->getClient() !== $this) {
+            $section->setClient($this);
+        }
+
+        $this->section = $section;
 
         return $this;
     }
