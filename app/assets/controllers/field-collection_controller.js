@@ -20,7 +20,7 @@ export default class extends Controller {
 
         // Create tr
         const tr = document.createElement('tr');
-        tr.classList.add('fade-in');
+        tr.setAttribute('data-controller', 'fade');
 
         // Add td
         data.forEach(div => {
@@ -35,7 +35,7 @@ export default class extends Controller {
         // Add td "Delete"
         const del = tbody.querySelector('tr > td').cloneNode(true);
         tr.insertBefore(del, tr.firstChild);
-
+        
         // Add tr
         tbody.insertBefore(tr, tbody.lastElementChild);
         this.indexValue++;
@@ -45,10 +45,8 @@ export default class extends Controller {
         event.preventDefault();
 
         const tr = event.target.closest('tr');
-        tr.classList.add('fade-out');
-
-        setTimeout(() => {
+        if (tr) {
             tr.remove();
-        }, 500);
+        }
     }
 }

@@ -11,7 +11,7 @@
         data-event-collection-prototype-value="{{ form_widget(form.events.vars.prototype)|e('html_attr') }}"
    >
    {% for event in form.events %}
-   <tr >
+   <tr {{ stimulus_controller('fade') }}>
        <td>
            <button class="deleteRecord border border-0" type="button" {{ stimulus_action('event-collection', 'delete') }}>
                <i class="bi bi-trash"></i>
@@ -31,7 +31,7 @@
        }) }}</td>
    </tr>
    {% endfor %}
-   <tr>
+   <tr {{ stimulus_controller('fade') }}>
        <td class="border border-0">
            <button class="addRecord border border-0 mt-1" type="button" {{ stimulus_action('event-collection', 'add') }}>
                <i class="bi bi-plus"></i>
