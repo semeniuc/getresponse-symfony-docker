@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TestEntityController extends AbstractController
 {
-    #[Route('/test/entity', name: 'test_entity')]
+    #[Route('/test/connect', name: 'bitrix_connect')]
     public function index(Request $request, BuilderCoreService $builderCoreService): JsonResponse
     {
         $request->request->set('member_id', 'fc91abad728a1af85e86eff3d1e2424f');
@@ -23,7 +23,7 @@ class TestEntityController extends AbstractController
         // $call = new \Bitrix24\SDK\Services\Main\Service\Main($core, $logger);
         // $result = $call->getCurrentScope()->getResponseData()->getResult();
 
-        $call = new EntityService($core, $logger);
+        // $call = new EntityService($core, $logger);
         // $result = $call->getSection('beup_getresponse', 'section_bitrix');
         // $result = $call->getProperty('beup_getresponse', 'value');
 
@@ -43,14 +43,14 @@ class TestEntityController extends AbstractController
 
         // $call->setHookUrl('https://beup.io');
         // $call->setPipeline('GTHGY56H');
-        $call->setEvent('Subcsription', 'C69:NEW');
+        // $call->setEvent('Subcsription', 'C69:NEW');
 
-        $apiKey = $call->getApiKey();
-        $list = $call->getList();
-        $fields = $call->getFields();
-        $hookUrl = $call->getHookUrl();
-        $pipeline = $call->getPipeline();
-        $events = $call->getEvents();
+        // $apiKey = $call->getApiKey();
+        // $list = $call->getList();
+        // $fields = $call->getFields();
+        // $hookUrl = $call->getHookUrl();
+        // $pipeline = $call->getPipeline();
+        // $events = $call->getEvents();
 
         return $this->json([
             'apiKey' => $apiKey,
