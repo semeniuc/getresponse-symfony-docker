@@ -20,7 +20,7 @@ export default class extends Controller {
 
         // Create tr
         const tr = document.createElement('tr');
-        tr.setAttribute('data-controller', 'fade');
+        tr.classList.toggle('fade-in', true);
 
         // Add td
         data.forEach(div => {
@@ -45,8 +45,14 @@ export default class extends Controller {
         event.preventDefault();
 
         const tr = event.target.closest('tr');
+        tr.classList.toggle('fade-out', true);
         if (tr) {
-            tr.remove();
+            setTimeout(
+                () => {
+                    tr.remove();
+                },
+                300
+            );
         }
     }
 }

@@ -11,7 +11,7 @@
                     {% include 'form/_header.html.twig' %}
 
                     {# Title #}
-                   <div class="row p-1" {{ stimulus_controller('fade') }}>
+                   <div class="row fade-in p-1">
                         <div class="col-md-12 text-center">
                             <h3>{% block articleTitle %}{{ 'form.settings.title'|trans }}{% endblock %}</h3>
                         </div>
@@ -20,7 +20,7 @@
                     {# Form #}
                     {{ form_start(form, {'action': path('set_settings')}) }}
                     {# Line 1 #}
-                    <div class="row p-3" {{ stimulus_controller('fade') }}>
+                    <div class="row fade-in p-3">
                         <div class="col-md-6">
                             {# Section title #}
                             <div>
@@ -94,7 +94,7 @@
                     </div>
 
                     {# Line 2 #}
-                    <div class="row p-3" {{ stimulus_controller('fade') }}>
+                    <div class="row fade-in p-3">
                         {# List #}
                         <div class="col-md-6">
                             <div class="form-group mb-2 col-md-6">
@@ -131,7 +131,7 @@
                     </div>
 
                     {# Line 3 #}
-                    <div class="row p-3" {{ stimulus_controller('fade') }}>
+                    <div class="row fade-in p-3">
                         {# Fields #}
                         <div class="col-md-6">
                             {% include 'form/_field_row.html.twig' %}
@@ -144,7 +144,7 @@
                     </div>
 
                    {# Submit #}
-                    <div class="row p-3" {{ stimulus_controller('fade') }}>
+                    <div class="row fade-in p-3">
                         <div class="col-md-12 d-md-flex justify-content-md-end">
                             <div class="form-group">
                                 {{ form_label(form.submit, 'form.settings.submit'|trans) }}
