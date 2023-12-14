@@ -12,7 +12,7 @@ export default class extends Controller {
             () => {
                 this.element.classList.toggle('fade-out', true);
             },
-            1000
+            2000
         );
     }
 }

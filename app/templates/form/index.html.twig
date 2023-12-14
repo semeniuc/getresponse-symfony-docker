@@ -20,7 +20,7 @@
                     {# Form #}
                     {{ form_start(form, {'action': path('set_settings')}) }}
                     {# Line 1 #}
-                    <div class="row p-3">
+                    <div class="row p-3" {{ stimulus_controller('fade') }}>
                         <div class="col-md-6">
                             {# Section title #}
                             <div>
@@ -94,7 +94,7 @@
                     </div>
 
                     {# Line 2 #}
-                    <div class="row p-3">
+                    <div class="row p-3" {{ stimulus_controller('fade') }}>
                         {# List #}
                         <div class="col-md-6">
                             <div class="form-group mb-2 col-md-6">
@@ -131,16 +131,7 @@
                     </div>
 
                     {# Line 3 #}
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Fields to sync</p>
-                        </div>
-
-                        <div class="col-md-6">
-                            <p>Events to sync</p>
-                        </div>
-                    </div>
-                    <div class="row p-3">
+                    <div class="row p-3" {{ stimulus_controller('fade') }}>
                         {# Fields #}
                         <div class="col-md-6">
                             {% include 'form/_field_row.html.twig' %}
@@ -153,7 +144,7 @@
                     </div>
 
                    {# Submit #}
-                   <div class="row p-3">
+                    <div class="row p-3" {{ stimulus_controller('fade') }}>
                         <div class="col-md-12 d-md-flex justify-content-md-end">
                             <div class="form-group">
                                 {{ form_label(form.submit, 'form.settings.submit'|trans) }}
@@ -164,10 +155,10 @@
                                 }}
                             </div>
                         </div>
-                   </div>
-                   {{ form_end(form) }}
+                    </div>
+                    {{ form_end(form) }}
 
-                   {# Footer #}
+                    {# Footer #}
                     {% include 'form/_footer.html.twig' %}
 
                 </div>
