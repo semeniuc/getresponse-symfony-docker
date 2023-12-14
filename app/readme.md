@@ -4,7 +4,7 @@ Bitrix
     member_id
     access_token
     refresh_token
-    expires_token
+    expires_on
     plan
     executed_at
 
