@@ -2,7 +2,7 @@
 
 namespace App\Service\Bitrix;
 
-use App\Entity\Bitrix\Client;
+use App\Entity\Client;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ClientManagerService
@@ -15,9 +15,9 @@ class ClientManagerService
     }
 
     public function set(
-        string $memberId,
-        string $domain,
-        ?string $tariff,
+        string $bitrixId,
+        string $bitrixDomain,
+        ?string $bitrixPlan,
         int $appVersion,
         bool $appInstaled,
         string $accessToken,
@@ -25,7 +25,7 @@ class ClientManagerService
         int $expires
     ): Client {
         // Check if client already exists
-        $existingClient = $this->get($memberId);
+        $existingClient = $this->get($bitrixId);
         if ($existingClient) {
             $client = $existingClient;
         } else {
@@ -33,8 +33,8 @@ class ClientManagerService
         }
 
         // Save keys
-        $client->setMemberId($memberId);
-        $client->setDomain($domain);
+        $client->setBitrixId($bitrixId);
+        $client->setDomain($bitrixDomain);
         $client->setTariff($tariff);
         $client->setAppVersion($appVersion);
         $client->setAppInstaled($appInstaled);

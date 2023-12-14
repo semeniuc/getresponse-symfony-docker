@@ -1,22 +1,26 @@
 # Structure tables
-Client
-    id                      (client_id) 
-    bitrix_id
-    bitrix_domain
-    bitrix_plan
-    getresponse_plan
-    app_version
-    app_instaled
+Bitrix
+    id                      (bitrix)       
+    member_id
+    access_token
+    refresh_token
+    expires_token
+    plan
     executed_at
 
-Access 
-    id 
-    client                  (Client > id) one to one
-    bitrix_token
-    bitrix_refresh_token
-    bitrix_expires_token
-    getresponse_token
+Client
+    id                      (client)
+    bitrix                  (Bitrix > id) one to one
     app_token
+    app_domain
+    app_version
+    executed_at
+
+Getresponse
+    id
+    client                  (Client > id) one to one
+    access_token
+    plan
     executed_at
 
 Section

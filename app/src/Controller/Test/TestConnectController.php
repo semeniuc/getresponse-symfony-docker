@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TestEntityController extends AbstractController
+class TestConnectController extends AbstractController
 {
     #[Route('/test/connect', name: 'bitrix_connect')]
     public function index(Request $request, BuilderCoreService $builderCoreService): JsonResponse
@@ -19,6 +19,10 @@ class TestEntityController extends AbstractController
         // Create core
         $core = $builderCoreService->getCore($request->request->get('member_id'));
         $logger = $builderCoreService->getLogger();
+
+        return $this->json([
+            'core' => $core
+        ]);
 
         // $call = new \Bitrix24\SDK\Services\Main\Service\Main($core, $logger);
         // $result = $call->getCurrentScope()->getResponseData()->getResult();
@@ -52,13 +56,13 @@ class TestEntityController extends AbstractController
         // $pipeline = $call->getPipeline();
         // $events = $call->getEvents();
 
-        return $this->json([
-            'apiKey' => $apiKey,
-            'list' => $list,
-            'fields' => $fields,
-            'hookUrl' => $hookUrl,
-            'pipeline' => $pipeline,
-            'events' => $events,
-        ]);
+        // return $this->json([
+        //     'apiKey' => $apiKey,
+        //     'list' => $list,
+        //     'fields' => $fields,
+        //     'hookUrl' => $hookUrl,
+        //     'pipeline' => $pipeline,
+        //     'events' => $events,
+        // ]);
     }
 }

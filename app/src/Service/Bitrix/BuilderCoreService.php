@@ -3,7 +3,7 @@
 namespace App\Service\Bitrix;
 
 use App\{
-    Entity\Bitrix\Client,
+    Entity\Client,
     Service\Bitrix\ClientManagerService,
     EventListener\Bitrix\AuthTokenListener
 };
