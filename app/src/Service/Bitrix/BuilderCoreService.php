@@ -3,8 +3,8 @@
 namespace App\Service\Bitrix;
 
 use App\{
-    Entity\Client,
-    Service\Bitrix\ClientManagerService,
+    Entity\Bitrix,
+    Service\Bitrix\ManagerService,
     EventListener\Bitrix\AuthTokenListener
 };
 use Bitrix24\SDK\Core\{
@@ -29,12 +29,12 @@ use Symfony\Component\{
 
 class BuilderCoreService
 {
-    private ClientManagerService $clientManagerService;
+    private ManagerService $managerService;
     private Logger $logger;
 
-    public function __construct(ClientManagerService $clientManagerService)
+    public function __construct(ManagerService $managerService)
     {
-        $this->clientManagerService = $clientManagerService;
+        $this->managerService = $managerService;
         $this->logger = new Logger('bitrix24', [new StreamHandler('b24-api-client.log', Logger::INFO)]);
     }
 
@@ -45,7 +45,7 @@ class BuilderCoreService
 
     public function getCore(string $memberId): CoreInterface
     {
-        $client = $this->clientManagerService->get($memberId);
+        $client = $this->managerService->get($memberId);
         $apiClient = $this->createApiClient($client);
 
         $apiLevelErrorHandler = new ApiLevelErrorHandler($this->logger);

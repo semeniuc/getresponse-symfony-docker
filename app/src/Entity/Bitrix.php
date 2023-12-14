@@ -6,6 +6,7 @@ use App\Repository\BitrixRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BitrixRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Bitrix
 {
     #[ORM\Id]
@@ -101,9 +102,10 @@ class Bitrix
         return $this->executedAt;
     }
 
-    public function setExecutedAt(\DateTimeImmutable $executedAt): static
+    #[ORM\PrePersist]
+    public function setExecutedAt(): static
     {
-        $this->executedAt = $executedAt;
+        $this->executedAt = new \DateTimeImmutable();
 
         return $this;
     }
