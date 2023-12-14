@@ -32,8 +32,7 @@ Section
 
 Field
     id
-    client                  (Client > id) many to one
-    list                    (Section > id > list) many to one
+    section                 (section > id) many to one
     entity
     bitrix
     getresponse
@@ -41,8 +40,7 @@ Field
 
 Event
     id 
-    client                  (Client > id) many to one
-    pipeline                (Section > id > pipeline) many to one
+    section                 (section > id) many to one
     type
     stage
     executed_at
