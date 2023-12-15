@@ -15,7 +15,7 @@
         data-field-collection-prototype-value="{{ form_widget(form.fields.vars.prototype)|e('html_attr') }}"
    >
     {% for field in form.fields %}
-    <tr class="fade-in">
+    <tr>
         <td>
             <button class="deleteRecord border border-0" type="button" {{ stimulus_action('field-collection', 'delete') }}>
                 <i class="bi bi-trash"></i>
@@ -41,7 +41,7 @@
        }) }}</td>
     </tr>
     {% endfor %}
-    <tr class="fade-in">
+    <tr>
         <td class="border border-0">
             <button class="addRecord border border-0 mt-1" type="button" {{ stimulus_action('field-collection', 'add') }}>
                 <i class="bi bi-plus"></i>
