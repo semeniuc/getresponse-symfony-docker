@@ -1,12 +1,7 @@
 <?php
 
-namespace App\Repository;
 
-use App\Entity\Bitrix;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
-
-class BitrixRepository extends ServiceEntityRepository
+class Example extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

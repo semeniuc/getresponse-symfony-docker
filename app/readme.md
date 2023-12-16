@@ -6,9 +6,9 @@ Client
 
 Bitrix
     id                      
-    client                  (Client > id) one to one
-    domain
-    plan       
+    client                 (Client > id) one to one
+    domain_url
+    plan_id       
     member_id
     access_token
     refresh_token
@@ -17,29 +17,29 @@ Bitrix
 
 Getresponse
     id
-    client                  (Client > id) one to one
-    plan
+    client                (Client > id) one to one
+    plan_id
     access_token
     executed_at
 
 Section
     id 
-    client                  (Client > id) one to one
-    list                    (getresponse list of sync)
-    pipeline                (bitrix pipeline of sync)
+    client              (Client > id) one to one
+    list_id                 (getresponse list of sync)
+    pipeline_id             (bitrix pipeline of sync)
     executed_at
 
 Field
     id
-    client                  (Client > id) many to one
-    entity
-    bitrix
-    getresponse
+    client             (Client > id) one to one
+    entity_id
+    bitrix_id
+    getresponse_id
     executed_at
 
 Event
     id 
-    client                  (Client > id) many to one
-    type
-    stage
+    client             (Client > id) many to one
+    type_id
+    stage_id
     executed_at
