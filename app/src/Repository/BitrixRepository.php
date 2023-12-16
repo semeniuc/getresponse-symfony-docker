@@ -28,13 +28,17 @@ class BitrixRepository extends ServiceEntityRepository
 
         if (!$record) {
             $record = new Bitrix();
+            $record->setClient($client);
             $record->setMemberId($memberId);
         }
+
+        $record->setDomainUrl($domainUrl);
+        $record->setPlanId($planId);
 
         $record->setAccessToken($accessToken);
         $record->setRefreshToken($refreshToken);
         $record->setExpiresOn($expiresOn);
-        $record->setPlanId($planId);
+        
 
         $this->getEntityManager()->persist($record);
         $this->getEntityManager()->flush();
