@@ -1,26 +1,25 @@
 # Structure tables
+Client
+    id                      (client)
+    access_token
+    executed_at
+
 Bitrix
-    id                      (bitrix)       
+    id                      
+    client                  (Client > id) one to one
+    domain
+    plan       
     member_id
     access_token
     refresh_token
     expires_on
-    plan
-    executed_at
-
-Client
-    id                      (client)
-    bitrix                  (Bitrix > id) one to one
-    app_token
-    app_domain
-    app_version
     executed_at
 
 Getresponse
     id
     client                  (Client > id) one to one
-    access_token
     plan
+    access_token
     executed_at
 
 Section
@@ -32,7 +31,7 @@ Section
 
 Field
     id
-    section                 (section > id) many to one
+    client                  (Client > id) many to one
     entity
     bitrix
     getresponse
@@ -40,7 +39,7 @@ Field
 
 Event
     id 
-    section                 (section > id) many to one
+    client                  (Client > id) many to one
     type
     stage
     executed_at

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Service;
+
 use App\{
     Entity\Bitrix,
     Repository\BitrixRepository,
@@ -28,7 +30,7 @@ use Bitrix24\SDK\Core\{
     Credentials\Scope
 };
 
-class CoreService
+class BitrixConnectorService
 {
     private BitrixRepository $manager;
     private ?Logger $logger = null;
