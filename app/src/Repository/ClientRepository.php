@@ -21,28 +21,19 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
-//    /**
-//     * @return Client[] Returns an array of Client objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findOneByAccessToken(string $accessToken): ?Client
+    {
+        return $this->findOneBy(['accessToken' => $accessToken]);
+    }
 
-//    public function findOneBySomeField($value): ?Client
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findOneByMemberId(string $memberId): ?Client
+    {
+        // return $this->findOneBy(['memberId' => $memberId]);
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.bitrix', 'b')
+            ->andWhere('b.memberId = :memberId')
+            ->setParameter('memberId', $memberId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

@@ -63,7 +63,7 @@ class BitrixConnectorService
 
     private function getCredentials(Bitrix $entity): Credentials
     {
-        return Credentials::createFromOAuth($this->createAccessToken($entity), $this->getAppProfile(), 'https://' . $entity->getDomain() . '/');
+        return Credentials::createFromOAuth($this->createAccessToken($entity), $this->getAppProfile(), 'https://' . $entity->getDomainUrl() . '/');
     }
 
     private function getTraceableClient(): TraceableHttpClient
