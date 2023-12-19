@@ -1,26 +1,35 @@
 <?php
 
-namespace App\Controller\Bitrix;
+namespace App\Controller;
 
-use App\Service\Bitrix\ClientManagerService;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\BitrixRepository;
+
 use Symfony\Component\HttpFoundation\{
     Request,
     Response
 };
-use Symfony\Component\Routing\Annotation\Route;
 
-// #[Route('/install', name: 'install')]
 class InstallController extends AbstractController
 {
-    public function execute(Request $request, ClientManagerService $client): Response
+    #[Route('/install', name: 'install')]
+    public function install(Request $request, BitrixRepository $bitrix): Response
     {
         $response = new Response();
         $response->headers->set('Content-Type', 'text/html');
 
+        try {
+            $bitrix->set();
+
+        } catch (\Throwable $th) {
+            $response->setContent($th->getMessage());
+        }
+
         // Check type of request and that a request from the Bitrix
         if ($request->isMethod('POST') && $request->request->get('PLACEMENT') == 'DEFAULT') {
-            $response->setContent('
+            if ($bitrix->set('domain', null, 'fc91abad728a1af85e86eff3d1e2424f', 'accessToken', 'refreshToken', 1234324)) {
+                $response->setContent('
                 <html>
                     <head>
                         <script src="//api.bitrix24.com/api/v1/"></script>
@@ -33,25 +42,14 @@ class InstallController extends AbstractController
                     <body>
                     </body>
                 </html>');
-
-            $expires = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Warsaw'));
-
-            // Save keys
-            $client->set(
-                $request->request->get('member_id'),
-                $request->query->get('DOMAIN'),
-                null,
-                1,
-                true,
-                $request->request->get('AUTH_ID'),
-                $request->request->get('REFRESH_ID'),
-                $expires->modify('+3590 seconds')->getTimestamp()
-            );
+            } else {
+                $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            }
         } else {
-            // Return error
-            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
         }
 
+        dd($request);
         return $response;
     }
 }

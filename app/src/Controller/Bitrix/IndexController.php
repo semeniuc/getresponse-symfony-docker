@@ -17,7 +17,7 @@ class IndexController extends AbstractController
     private Core $core;
     private Logger $logger;
 
-    #[Route('/', name: 'main')]
+    // #[Route('/', name: 'main')]
     public function execute(Request $request, BuilderCoreService $builderCoreService): Response
     {
         // ? Test

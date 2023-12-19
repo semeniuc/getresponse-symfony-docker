@@ -22,12 +22,16 @@ class BitrixRepository extends ServiceEntityRepository
         parent::__construct($registry, Bitrix::class);
     }
 
-    public function set(string $domainUrl, ?string $planId, string $memberId, string $accessToken, string $refreshToken, int $expiresOn): Bitrix
+    public function set(string $domainUrl, ?string $planId, string $memberId, string $accessToken, string $refreshToken, int $expiresOn): bool
     {
         $record = $this->get($memberId);
 
         if (!$record) {
+            $client = new Client();
+            $client->setAccessToken('fdfsd');
+
             $record = new Bitrix();
+            $record->setClient($client);
             $record->setMemberId($memberId);
         }
 
@@ -37,12 +41,11 @@ class BitrixRepository extends ServiceEntityRepository
         $record->setAccessToken($accessToken);
         $record->setRefreshToken($refreshToken);
         $record->setExpiresOn($expiresOn);
-        
 
         $this->getEntityManager()->persist($record);
         $this->getEntityManager()->flush();
 
-        return $record;
+        return true;
     }
 
     public function get(string $memberId): ?Bitrix
