@@ -24,7 +24,7 @@ class Bitrix
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $planId = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, unique: true)]
     private ?string $memberId = null;
 
     #[ORM\Column(length: 50)]
@@ -36,8 +36,9 @@ class Bitrix
     #[ORM\Column]
     private ?int $expiresOn = null;
 
-    // #[Gedmo\Timestampable]
-    #[ORM\Column]
+    #[Gedmo\Timestampable(on: 'create')]
+    #[Gedmo\Timestampable(on: 'update')]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $executedAt = null;
 
     public function getId(): ?int
@@ -132,12 +133,5 @@ class Bitrix
     public function getExecutedAt(): ?\DateTimeImmutable
     {
         return $this->executedAt;
-    }
-
-    public function setExecutedAt(\DateTimeImmutable $executedAt): static
-    {
-        $this->executedAt = $executedAt;
-
-        return $this;
     }
 }

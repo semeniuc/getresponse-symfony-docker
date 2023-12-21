@@ -6,6 +6,7 @@ use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
@@ -18,7 +19,9 @@ class Client
     #[ORM\Column(length: 50)]
     private ?string $accessToken = null;
 
-    #[ORM\Column]
+    #[Gedmo\Timestampable(on: 'create')]
+    #[Gedmo\Timestampable(on: 'update')]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $executedAt = null;
 
     #[ORM\OneToOne(mappedBy: 'client', cascade: ['persist', 'remove'])]
@@ -62,13 +65,6 @@ class Client
     public function getExecutedAt(): ?\DateTimeImmutable
     {
         return $this->executedAt;
-    }
-
-    public function setExecutedAt(\DateTimeImmutable $executedAt): static
-    {
-        $this->executedAt = $executedAt;
-
-        return $this;
     }
 
     public function getBitrix(): ?Bitrix

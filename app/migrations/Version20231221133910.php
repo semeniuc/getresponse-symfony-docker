@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231218142359 extends AbstractMigration
+final class Version20231221133910 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20231218142359 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE bitrix (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, domain_url VARCHAR(100) NOT NULL, plan_id VARCHAR(10) DEFAULT NULL, member_id VARCHAR(50) NOT NULL, access_token VARCHAR(50) NOT NULL, refresh_token VARCHAR(50) NOT NULL, expires_on INT NOT NULL, executed_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', UNIQUE INDEX UNIQ_3915B8DB19EB6921 (client_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE bitrix (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, domain_url VARCHAR(100) NOT NULL, plan_id VARCHAR(10) DEFAULT NULL, member_id VARCHAR(50) NOT NULL, access_token VARCHAR(50) NOT NULL, refresh_token VARCHAR(50) NOT NULL, expires_on INT NOT NULL, executed_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', UNIQUE INDEX UNIQ_3915B8DB7597D3FE (member_id), UNIQUE INDEX UNIQ_3915B8DB19EB6921 (client_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE client (id INT AUTO_INCREMENT NOT NULL, access_token VARCHAR(50) NOT NULL, executed_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE event (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, type_id VARCHAR(10) NOT NULL, stage_id VARCHAR(10) NOT NULL, executed_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_3BAE0AA719EB6921 (client_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE field (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, entity_id VARCHAR(10) NOT NULL, bitrix_id VARCHAR(10) NOT NULL, getresponse_id VARCHAR(10) NOT NULL, executed_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_5BF5455819EB6921 (client_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
