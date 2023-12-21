@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BitrixRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: BitrixRepository::class)]
 class Bitrix
@@ -35,6 +36,7 @@ class Bitrix
     #[ORM\Column]
     private ?int $expiresOn = null;
 
+    // #[Gedmo\Timestampable]
     #[ORM\Column]
     private ?\DateTimeImmutable $executedAt = null;
 

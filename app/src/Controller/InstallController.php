@@ -14,13 +14,13 @@ use Symfony\Component\HttpFoundation\{
 class InstallController extends AbstractController
 {
     #[Route('/install', name: 'install')]
-    public function install(Request $request, BitrixRepository $bitrix): Response
+    public function install(Request $request): Response
     {
         $response = new Response();
         $response->headers->set('Content-Type', 'text/html');
 
         try {
-            $bitrix->set();
+            // $bitrix->set();
 
         } catch (\Throwable $th) {
             $response->setContent($th->getMessage());
