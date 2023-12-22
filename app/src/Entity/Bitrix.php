@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\BitrixRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: BitrixRepository::class)]
 class Bitrix
@@ -36,9 +35,7 @@ class Bitrix
     #[ORM\Column]
     private ?int $expiresOn = null;
 
-    #[Gedmo\Timestampable(on: 'create')]
-    #[Gedmo\Timestampable(on: 'update')]
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?\DateTimeImmutable $executedAt = null;
 
     public function getId(): ?int
@@ -133,5 +130,12 @@ class Bitrix
     public function getExecutedAt(): ?\DateTimeImmutable
     {
         return $this->executedAt;
+    }
+
+    public function setExecutedAt(\DateTimeImmutable $executedAt): static
+    {
+        $this->executedAt = $executedAt;
+
+        return $this;
     }
 }

@@ -2,19 +2,11 @@
 
 namespace App\Repository;
 
-use App\Entity\Client;
 use App\Entity\Bitrix;
+use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Bitrix>
- *
- * @method Bitrix|null find($id, $lockMode = null, $lockVersion = null)
- * @method Bitrix|null findOneBy(array $criteria, array $orderBy = null)
- * @method Bitrix[]    findAll()
- * @method Bitrix[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class BitrixRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -22,25 +14,23 @@ class BitrixRepository extends ServiceEntityRepository
         parent::__construct($registry, Bitrix::class);
     }
 
-    public function set(string $domainUrl, ?string $planId, string $memberId, string $accessToken, string $refreshToken, int $expiresOn): bool
+    public function get(string $memberId): ?Bitrix
     {
-        $record = $this->get($memberId);
+        return $this->findOneBy(['memberId' => $memberId]);
+    }
 
-        if (!$record) {
-            $client = new Client();
-            $client->setAccessToken('fdfsd');
+    public function add(Client $client, string $domainUrl, ?string $planId, string $memberId, string $accessToken, string $refreshToken, int $expiresOn): bool
+    {
+        $record = new Bitrix();
 
-            $record = new Bitrix();
-            $record->setClient($client);
-            $record->setMemberId($memberId);
-        }
-
+        $record->setClient($client);
+        $record->setMemberId($memberId);
         $record->setDomainUrl($domainUrl);
         $record->setPlanId($planId);
-
         $record->setAccessToken($accessToken);
         $record->setRefreshToken($refreshToken);
         $record->setExpiresOn($expiresOn);
+        $record->setExecutedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Warsaw')));
 
         $this->getEntityManager()->persist($record);
         $this->getEntityManager()->flush();
@@ -48,8 +38,26 @@ class BitrixRepository extends ServiceEntityRepository
         return true;
     }
 
-    public function get(string $memberId): ?Bitrix
+    public function upd(int $id, string $domainUrl, ?string $planId, string $memberId, string $accessToken, string $refreshToken, int $expiresOn): bool
     {
-        return $this->findOneBy(['memberId' => $memberId]);
+        $record = $this->find($id);
+        $record->setDomainUrl($domainUrl);
+        $record->setPlanId($planId);
+        $record->setAccessToken($accessToken);
+        $record->setRefreshToken($refreshToken);
+        $record->setExpiresOn($expiresOn);
+        $record->setExecutedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Warsaw')));
+
+        $this->getEntityManager()->flush();
+
+        return true;
+    }
+
+    public function del(int $id): bool
+    {
+        $record = $this->find($id);
+        $record->remove();
+
+        return true;
     }
 }

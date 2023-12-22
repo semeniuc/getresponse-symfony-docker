@@ -13,43 +13,39 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
-    public function findOneByMemberId(string $memberId): ?Client
-    {
-        // return $this->findOneBy(['memberId' => $memberId]);
-        return $this->createQueryBuilder('c')
-            ->leftJoin('c.bitrix', 'b')
-            ->andWhere('b.memberId = :memberId')
-            ->setParameter('memberId', $memberId)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
-    public function add(): Client
-    {
-        $client = new Client();
-        $client->setAccessToken('fsdf');
-
-        $this->getEntityManager()->persist($client);
-        $this->getEntityManager()->flush();
-
-        return $client;
-    }
-
     public function get(string $accessToken): ?Client
     {
         return $this->findOneBy(['accessToken' => $accessToken]);
     }
 
-    public function upd(): bool
+    public function add(string $accessToken): Client
     {
-        // $client = $this->
-        // $client-
+        $record = new Client();
+        $record->setAccessToken($accessToken);
+        $record->setExecutedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Warsaw')));
+
+        $this->getEntityManager()->persist($record);
+        $this->getEntityManager()->flush();
+
+        return $record;
+    }
+
+    public function upd(int $id, string $accessToken): bool
+    {
+        $record = $this->find($id);
+        $record->setAccessToken($accessToken);
+        $record->setExecutedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Warsaw')));
+
+        $this->getEntityManager()->flush();
+
         return true;
     }
 
-    public function del(): bool
+    public function del(int $id): bool
     {
-        // $this->
+        $record = $this->find($id);
+        $record->remove();
+
         return true;
     }
 }
