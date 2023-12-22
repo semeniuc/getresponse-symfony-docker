@@ -8,6 +8,7 @@ use App\Service\Bitrix\Entity\EntityService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -23,13 +24,20 @@ class TestInstallController extends AbstractController
 
         $bitrix = $entityManager->getRepository(Bitrix::class)->get($memberId);
 
+        // ? hash tokens
+        
+
+
         if (!$bitrix) {
             $entityManager->getRepository(Bitrix::class)->set('test', 'free', $memberId, 'fdsfsdrewrwe', 'dsadasdas', 102341023);
         }
 
+        $client = $bitrix->getClient();
+
         return new JsonResponse([
             'memberId' => $memberId,
-            'bitrix' => $bitrix,
+            'class' => $bitrix::class,
+            'client' => $client->getAccessToken()
         ]);
     }
 }
