@@ -1,34 +1,35 @@
 <?php
 
+declare(strict_types=1);
 namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Repository\BitrixRepository;
 
-use Symfony\Component\HttpFoundation\{
-    Request,
-    Response
-};
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Service\BitrixManagerService;
 
 class InstallController extends AbstractController
 {
     #[Route('/install', name: 'install')]
-    public function install(Request $request): Response
+    public function install(Request $request, BitrixManagerService $bitrixManagerService): Response
     {
         $response = new Response();
         $response->headers->set('Content-Type', 'text/html');
 
-        try {
-            // $bitrix->set();
-
-        } catch (\Throwable $th) {
-            $response->setContent($th->getMessage());
-        }
-
         // Check type of request and that a request from the Bitrix
         if ($request->isMethod('POST') && $request->request->get('PLACEMENT') == 'DEFAULT') {
-            if ($bitrix->set('domain', null, 'fc91abad728a1af85e86eff3d1e2424f', 'accessToken', 'refreshToken', 1234324)) {
+
+            $result = $bitrixManagerService->install(
+                $request->query->get('DOMAIN'),
+                null,
+                $request->request->get('member_id'),
+                $request->request->get('AUTH_ID'),
+                $request->request->get('REFRESH_ID'),
+            );
+
+            if ($result === true) {
                 $response->setContent('
                 <html>
                     <head>
@@ -49,7 +50,6 @@ class InstallController extends AbstractController
             $response->setStatusCode(Response::HTTP_BAD_REQUEST);
         }
 
-        dd($request);
         return $response;
     }
 }
