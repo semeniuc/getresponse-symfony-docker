@@ -26,10 +26,10 @@ class Bitrix
     #[ORM\Column(length: 50, unique: true)]
     private ?string $memberId = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 100)]
     private ?string $accessToken = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 100)]
     private ?string $refreshToken = null;
 
     #[ORM\Column]

@@ -3,18 +3,18 @@
 declare(strict_types=1);
 namespace App\Controller;
 
+use App\Service\BitrixManagerService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Service\BitrixManagerService;
 
 class InstallController extends AbstractController
 {
     #[Route('/install', name: 'install')]
     public function install(Request $request, BitrixManagerService $bitrixManagerService): Response
     {
+        $result = null;
         $response = new Response();
         $response->headers->set('Content-Type', 'text/html');
 
@@ -26,7 +26,7 @@ class InstallController extends AbstractController
                 null,
                 $request->request->get('member_id'),
                 $request->request->get('AUTH_ID'),
-                $request->request->get('REFRESH_ID'),
+                $request->request->get('REFRESH_ID')
             );
 
             if ($result === true) {
