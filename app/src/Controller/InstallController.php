@@ -14,7 +14,6 @@ class InstallController extends AbstractController
     #[Route('/install', name: 'install')]
     public function install(Request $request, BitrixManagerService $bitrixManagerService): Response
     {
-        $result = null;
         $response = new Response();
         $response->headers->set('Content-Type', 'text/html');
 
