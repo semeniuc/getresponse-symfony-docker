@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 namespace App\Service;
 
 use App\{
@@ -32,13 +33,17 @@ use Bitrix24\SDK\Core\{
 
 class BitrixConnectorService
 {
-    private BitrixRepository $manager;
-    private ?Logger $logger = null;
+    private Logger $logger;
 
-    public function __construct(BitrixRepository $manager)
+    public function __construct(private BitrixRepository $manager)
     {
         $this->manager = $manager;
         $this->logger = new Logger('bitrix24', [new StreamHandler('b24-api-client.log', Logger::INFO)]);
+    }
+
+    public function getLogger(): Logger
+    {
+        return $this->logger;
     }
 
     public function getCore(string $memberId): CoreInterface

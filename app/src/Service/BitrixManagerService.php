@@ -8,17 +8,14 @@ use App\Repository\BitrixRepository;
 
 class BitrixManagerService
 {
-    private ClientRepository $clientRepository;
-    private BitrixRepository $bitrixRepository;
-
-    public function __construct(ClientRepository $clientRepository, BitrixRepository $bitrixRepository)
-    {
-        $this->clientRepository = $clientRepository;
-        $this->bitrixRepository = $bitrixRepository;
+    public function __construct(
+        private ClientRepository $clientRepository,
+        private BitrixRepository $bitrixRepository
+    ) {
     }
 
     public function install(string $domainUrl, ?string $planId, string $memberId, string $accessToken, string $refreshToken): bool
-    {        
+    {
         $bitrix = $this->bitrixRepository->get($memberId);
         if ($bitrix === null) {
             // Create client
@@ -28,14 +25,14 @@ class BitrixManagerService
             // Create bitrix
             $this->bitrixRepository->add(
                 $client,
-                $domainUrl, 
-                $planId, 
-                $memberId, 
-                $accessToken, 
-                $refreshToken, 
+                $domainUrl,
+                $planId,
+                $memberId,
+                $accessToken,
+                $refreshToken,
                 (new \DateTimeImmutable('now', new \DateTimeZone('Europe/Warsaw')))->modify('+3590 seconds')->getTimestamp(),
             );
-        } elseif($id = $bitrix->getId()) {
+        } else if ($id = $bitrix->getId()) {
             $this->bitrixRepository->upd(
                 $id,
                 $domainUrl,
