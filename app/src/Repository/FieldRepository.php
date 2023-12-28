@@ -9,7 +9,7 @@ use App\Entity\Field;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class FieldRepository extends ServiceEntityRepository implements RepositioryInterface
+class FieldRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

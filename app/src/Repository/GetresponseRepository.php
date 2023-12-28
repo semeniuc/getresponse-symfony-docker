@@ -9,7 +9,7 @@ use App\Entity\Getresponse;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class GetresponseRepository extends ServiceEntityRepository implements RepositioryInterface
+class GetresponseRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

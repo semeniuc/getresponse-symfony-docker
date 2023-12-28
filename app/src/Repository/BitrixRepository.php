@@ -9,7 +9,7 @@ use App\Entity\Bitrix;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class BitrixRepository extends ServiceEntityRepository implements RepositioryInterface
+class BitrixRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
