@@ -1,6 +1,11 @@
 <?php
 
+/**
+ * Inialization of the core for communication with Bitrix24
+ */
+
 declare(strict_types=1);
+
 namespace App\Service;
 
 use App\{
@@ -17,7 +22,8 @@ use Monolog\{
 use Symfony\Component\{
     EventDispatcher\EventDispatcher,
     HttpClient\HttpClient,
-    HttpClient\TraceableHttpClient
+    HttpClient\TraceableHttpClient,
+    Asset\Exception\InvalidArgumentException
 };
 
 use Bitrix24\SDK\Core\{
@@ -33,27 +39,25 @@ use Bitrix24\SDK\Core\{
 
 class BitrixConnectorService
 {
-    private Logger $logger;
-
-    public function __construct(private BitrixRepository $manager)
+    private $logger;
+    public function __construct(private BitrixRepository $bitrixRepository)
     {
-        $this->manager = $manager;
-        $this->logger = new Logger('bitrix24', [new StreamHandler('b24-api-client.log', Logger::INFO)]);
-    }
-
-    public function getLogger(): Logger
-    {
-        return $this->logger;
+        $this->logger = new Logger('bitrix24', [new StreamHandler('b24-api-client.log', Logger::DEBUG)]);
     }
 
     public function getCore(string $memberId): CoreInterface
     {
-        $entity = $this->manager->get($memberId);
+        $entity = $this->bitrixRepository->get($memberId);
+
+        if (!$entity) {
+            throw new InvalidArgumentException('Not found an entry in the table with such Memberid', 404);
+        }
+
         $apiClient = $this->createApiClient($entity);
 
         $apiLevelErrorHandler = new ApiLevelErrorHandler($this->logger);
         $eventDispatcher = new EventDispatcher();
-        $eventDispatcher->addListener(\Bitrix24\SDK\Events\AuthTokenRenewedEvent::class, [new AuthTokenListener($this->manager), 'onAuthTokenRenewed']);
+        $eventDispatcher->addListener(\Bitrix24\SDK\Events\AuthTokenRenewedEvent::class, [new AuthTokenListener($this->bitrixRepository), 'onAuthTokenRenewed']);
 
         return new Core($apiClient, $apiLevelErrorHandler, $eventDispatcher, $this->logger);
     }
@@ -66,7 +70,7 @@ class BitrixConnectorService
         return new ApiClient($credentials, $traceableClient, $this->logger);
     }
 
-    private function getCredentials(Bitrix $entity): Credentials
+    private function getCredentials($entity): Credentials
     {
         return Credentials::createFromOAuth($this->createAccessToken($entity), $this->getAppProfile(), 'https://' . $entity->getDomainUrl() . '/');
     }
