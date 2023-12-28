@@ -1,48 +1,60 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
+use App\Entity\Client;
 use App\Entity\Field;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Field>
- *
- * @method Field|null find($id, $lockMode = null, $lockVersion = null)
- * @method Field|null findOneBy(array $criteria, array $orderBy = null)
- * @method Field[]    findAll()
- * @method Field[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class FieldRepository extends ServiceEntityRepository
+class FieldRepository extends ServiceEntityRepository implements RepositioryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Field::class);
     }
 
-//    /**
-//     * @return Field[] Returns an array of Field objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('f.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function get(int $id): ?Field
+    {
+        return $this->findOneBy(['id' => $id]);
+    }
 
-//    public function findOneBySomeField($value): ?Field
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function add(Client $client, string $entityId, string $bitrixId, string $getresponseId): bool
+    {
+        $record = new Field();
+
+        $record->setClient($client);
+        $record->setEntityId($entityId);
+        $record->setBitrixId($bitrixId);
+        $record->setGetresponseId($getresponseId);
+        $record->setExecutedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Warsaw')));
+
+        $this->getEntityManager()->persist($record);
+        $this->getEntityManager()->flush();
+
+        return true;
+    }
+
+    public function upd(int $id, string $entityId, string $bitrixId, string $getresponseId): bool
+    {
+        $record = $this->find($id);
+        $record->setEntityId($entityId);
+        $record->setBitrixId($bitrixId);
+        $record->setGetresponseId($getresponseId);
+        $record->setExecutedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Warsaw')));
+
+        $this->getEntityManager()->flush();
+
+        return true;
+    }
+
+    public function del(int $id): bool
+    {
+        $record = $this->find($id);
+        $record->remove();
+
+        return true;
+    }
 }

@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
-use App\Entity\Section;
 use App\Entity\Client;
+use App\Entity\Section;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class SectionRepository extends ServiceEntityRepository
+class SectionRepository extends ServiceEntityRepository implements RepositioryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

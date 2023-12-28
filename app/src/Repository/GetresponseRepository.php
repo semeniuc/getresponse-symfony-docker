@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
-use App\Entity\Getresponse;
 use App\Entity\Client;
+use App\Entity\Getresponse;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class GetresponseRepository extends ServiceEntityRepository
+class GetresponseRepository extends ServiceEntityRepository implements RepositioryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
