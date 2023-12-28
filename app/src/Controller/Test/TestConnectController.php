@@ -24,6 +24,8 @@ class TestConnectController extends AbstractController
         $core->getApiClient()->getNewAccessToken();
         dd($result);
 
+        
+
         return $this->json([
             // 'core' => $core->call('user.current'),
             // 'logger' => $logger
