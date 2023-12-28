@@ -3,17 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Getresponse;
+use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Getresponse>
- *
- * @method Getresponse|null find($id, $lockMode = null, $lockVersion = null)
- * @method Getresponse|null findOneBy(array $criteria, array $orderBy = null)
- * @method Getresponse[]    findAll()
- * @method Getresponse[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class GetresponseRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,28 +14,43 @@ class GetresponseRepository extends ServiceEntityRepository
         parent::__construct($registry, Getresponse::class);
     }
 
-//    /**
-//     * @return Getresponse[] Returns an array of Getresponse objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('g.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function get(string $memberId): ?Getresponse
+    {
+        return $this->findOneBy(['memberId' => $memberId]);
+    }
 
-//    public function findOneBySomeField($value): ?Getresponse
-//    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function add(Client $client, ?string $planId, string $accessToken): bool
+    {
+        $record = new Getresponse();
+
+        $record->setClient($client);
+        $record->setPlanId($planId);
+        $record->setAccessToken($accessToken);
+        $record->setExecutedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Warsaw')));
+
+        $this->getEntityManager()->persist($record);
+        $this->getEntityManager()->flush();
+
+        return true;
+    }
+
+    public function upd(int $id, ?string $planId, string $accessToken): bool
+    {
+        $record = $this->find($id);
+        $record->setPlanId($planId);
+        $record->setAccessToken($accessToken);
+        $record->setExecutedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Warsaw')));
+
+        $this->getEntityManager()->flush();
+
+        return true;
+    }
+
+    public function del(int $id): bool
+    {
+        $record = $this->find($id);
+        $record->remove();
+
+        return true;
+    }
 }

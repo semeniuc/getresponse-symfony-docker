@@ -5,12 +5,14 @@ namespace App\Service;
 
 use App\Repository\ClientRepository;
 use App\Repository\BitrixRepository;
+use App\Repository\GetresponseRepository;
 
 class BitrixManagerService
 {
     public function __construct(
         private ClientRepository $clientRepository,
-        private BitrixRepository $bitrixRepository
+        private BitrixRepository $bitrixRepository,
+        private GetresponseRepository $getresponseRepository
     ) {
     }
 
@@ -32,6 +34,14 @@ class BitrixManagerService
                 $refreshToken,
                 (new \DateTimeImmutable('now', new \DateTimeZone('Europe/Warsaw')))->modify('+3590 seconds')->getTimestamp(),
             );
+
+            // Create getresponse
+            $this->getresponseRepository->add(
+                $client,
+                null,
+                'testAccessToken'
+            );
+
         } else if ($id = $bitrix->getId()) {
             $this->bitrixRepository->upd(
                 $id,
