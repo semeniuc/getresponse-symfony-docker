@@ -2,6 +2,7 @@
 
 namespace App\Controller\Test;
 
+use App\Repository\BitrixRepository;
 use App\Service\BitrixConnectorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,16 +12,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class TestConnectController extends AbstractController
 {
     #[Route('/test/connect', name: 'bitrix_connect')]
-    public function index(Request $request, BitrixConnectorService $bitrixConnectorService): JsonResponse
+    public function index(Request $request, BitrixConnectorService $bitrixConnectorService, BitrixRepository $bitrixRepository): JsonResponse
     {
         $request->request->set('member_id', 'fc91abad728a1af85e86eff3d1e2424f');
 
         // Create core
         $core = $bitrixConnectorService->getCore($request->request->get('member_id'));
-        $logger = $bitrixConnectorService->getLogger();
+        // $logger = $bitrixConnectorService->getLogger();
+
+        $result = $core->call('scope')->getResponseData()->getResult();
+        $core->getApiClient()->getNewAccessToken();
+        dd($result);
 
         return $this->json([
-            'core' => $core
+            // 'core' => $core->call('user.current'),
+            // 'logger' => $logger
         ]);
 
         // $call = new \Bitrix24\SDK\Services\Main\Service\Main($core, $logger);

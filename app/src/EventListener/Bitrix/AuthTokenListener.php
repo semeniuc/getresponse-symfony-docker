@@ -2,27 +2,20 @@
 
 namespace App\EventListener\Bitrix;
 
-use App\Repository\BitrixRepository;
 use Bitrix24\SDK\Events\AuthTokenRenewedEvent;
+use App\Service\BitrixManagerService;
 
 class AuthTokenListener
 {
-    private BitrixRepository $manager;
-
-    public function __construct(BitrixRepository $manager)
-    {
-        $this->manager = $manager;
-    }
-
-    public function onAuthTokenRenewed(AuthTokenRenewedEvent $event): void
+    public function onAuthTokenRenewed(AuthTokenRenewedEvent $event, BitrixManagerService $bitrixManagerService): void
     {
         // TODO - implement the request of the tariff and the application version
-        $this->manager->set(
+        $bitrixManagerService->install(
+            $event->getRenewedToken()->getDomain(),
+            null,
             $event->getRenewedToken()->getMemberId(),
             $event->getRenewedToken()->getAccessToken()->getAccessToken(),
             $event->getRenewedToken()->getAccessToken()->getRefreshToken(),
-            $event->getRenewedToken()->getAccessToken()->getExpires(),
-            null
         );
     }
 }

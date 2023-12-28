@@ -42,7 +42,7 @@ class BitrixConnectorService
     private $logger;
     public function __construct(private BitrixRepository $bitrixRepository)
     {
-        $this->logger = new Logger('bitrix24', [new StreamHandler('b24-api-client.log', Logger::DEBUG)]);
+        $this->logger = new Logger('bitrix24', [new StreamHandler('b24-api-client.log', Logger::ERROR)]);
     }
 
     public function getCore(string $memberId): CoreInterface
@@ -57,7 +57,7 @@ class BitrixConnectorService
 
         $apiLevelErrorHandler = new ApiLevelErrorHandler($this->logger);
         $eventDispatcher = new EventDispatcher();
-        $eventDispatcher->addListener(\Bitrix24\SDK\Events\AuthTokenRenewedEvent::class, [new AuthTokenListener($this->bitrixRepository), 'onAuthTokenRenewed']);
+        $eventDispatcher->addListener(\Bitrix24\SDK\Events\AuthTokenRenewedEvent::class, [new AuthTokenListener(), 'onAuthTokenRenewed']);
 
         return new Core($apiClient, $apiLevelErrorHandler, $eventDispatcher, $this->logger);
     }
