@@ -45,6 +45,16 @@ class FormDataService
         $getresponse = $this->getGetresponse($client);
         $section = $client->getSection();
 
+        // hookUrl
+        if ($client && $accessToken = $client->getAccessToken()) {
+            $hookUrl = "https://getresponse.beupsoft.pl/{$accessToken}/";
+        }
+
+        // apiKey
+        if ($getresponse) {
+            $apiKey = $getresponse->getAccessToken();
+        }
+
         // Fields
         if ($client->getFields() && $client->getFields()->toArray()) {
             $fields = array_map(function ($field) {
@@ -67,8 +77,8 @@ class FormDataService
         }
 
         return [
-            'api_key'   => $getresponse->getAccessToken() ?? '',
-            'hook_url'  => $client->getAccessToken() ?? '',
+            'api_key'   => $apiKey ?? '',
+            'hook_url'  => $hookUrl ?? '',
             'list'      => $section ? $section->getListId() : '',
             'pipeline'  => $section ? $section->getPipelineId() : '',
             'fields'    => $fields ?? [[]],
