@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace App\Controller;
 
+use App\Service\FormDataService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -14,9 +15,14 @@ use App\Form\LocaleType;
 
 class IndexController extends AbstractController
 {
+    /**
+     * Main page
+     */
     #[Route('/', name: 'index')]
-    public function index(Request $request): Response
+    public function index(Request $request, FormDataService $formDataService): Response
     {
+        $data = $formDataService->getData('fc91abad728a1af85e86eff3d1e2424f');
+
         // Put data in form locale
         $formLocaleView = $this->createForm(type: LocaleType::class, options: [
             'select' => [
@@ -29,21 +35,22 @@ class IndexController extends AbstractController
         // Put data in form settings
         $formSettingsView = $this->createForm(
             type: SettingsType::class,
-            data: [
-                'api_key' => 'zlilo4vmja1trjye30sal1oeyqetv3gh',
-                'hook_url' => 'https://getresponse.beupsoft.pl/client=fc91abad728a1af85e86eff3d1e2424f',
-                'list' => 'fdTrn65J',
-                'pipeline' => 'pipline_3',
-                'events' => [
-                    ['type' => 'event_1', 'stage' => 'stage_3'],
-                    ['type' => 'event_3', 'stage' => 'stage_2'],
-                ],
-                'fields' => [
-                    ['entity' => 1, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
-                    ['entity' => 3, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
-                    ['entity' => 4, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
-                ],
-            ],
+            // data: [
+            //     'api_key' => 'zlilo4vmja1trjye30sal1oeyqetv3gh',
+            //     'hook_url' => 'https://getresponse.beupsoft.pl/client=fc91abad728a1af85e86eff3d1e2424f',
+            //     'list' => 'fdTrn65J',
+            //     'pipeline' => 'pipline_3',
+            //     'events' => [
+            //         ['type' => 'event_1', 'stage' => 'stage_3'],
+            //         ['type' => 'event_3', 'stage' => 'stage_2'],
+            //     ],
+            //     'fields' => [
+            //         ['entity' => 1, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
+            //         ['entity' => 3, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
+            //         ['entity' => 4, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
+            //     ],
+            // ],
+            data: $data,
             options: [
                 'list_choices' => [
                     'Dofinansowanie w ramach KFS dla Hotele lubański' => 'fdTrn65J',
@@ -82,6 +89,24 @@ class IndexController extends AbstractController
                 ],
             ],
         );
+
+        // Handler for form
+        $formSettingsView->handleRequest($request);
+        if ($formSettingsView->isSubmitted() && $formSettingsView->isValid()) {
+
+            $inputData = $formSettingsView->getData();
+
+            $formDataService->setData(
+                'fc91abad728a1af85e86eff3d1e2424f',
+                $inputData['api_key'] ?? null,
+                $inputData['list'] ?? null,
+                $inputData['pipeline'] ?? null,
+                $inputData['fields'] ?? null,
+                $inputData['events'] ?? null,
+            );
+
+            return $this->redirectToRoute('index');
+        }
 
         // Render
         return $this->render('form/index.html.twig', [
