@@ -7,10 +7,14 @@ use App\Service\BitrixManagerService;
 
 class AuthTokenListener
 {
-    public function onAuthTokenRenewed(AuthTokenRenewedEvent $event, BitrixManagerService $bitrixManagerService): void
+    public function __construct(private BitrixManagerService $bitrixManagerService)
+    {
+    }
+
+    public function onAuthTokenRenewed(AuthTokenRenewedEvent $event): void
     {
         // TODO - implement the request of the tariff and the application version
-        $bitrixManagerService->install(
+        $this->bitrixManagerService->install(
             $event->getRenewedToken()->getDomain(),
             null,
             $event->getRenewedToken()->getMemberId(),
