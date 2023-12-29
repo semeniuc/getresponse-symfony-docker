@@ -4,6 +4,7 @@ namespace App\Controller\Test;
 
 use App\Repository\BitrixRepository;
 use App\Service\BitrixConnectorService;
+use Bitrix24\SDK\Core\Batch;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,11 +19,16 @@ class TestConnectController extends AbstractController
 
         // Create core
         $core = $bitrixConnectorService->getCore($request->request->get('member_id'));
+
+        // $core->getApiClient()->getResponse();
+        $batch = new Batch($core, $bitrixConnectorService->logger);
+        // $result = $batch->getTraversableList('')
+        dd($result);
         // $logger = $bitrixConnectorService->getLogger();
 
-        $result = $core->call('scope')->getResponseData()->getResult();
-        $core->getApiClient()->getNewAccessToken();
-        dd($result);
+        // $result = $core->call('scope')->getResponseData()->getResult();
+        // $core->getApiClient()->getNewAccessToken();
+        // dd($result);
 
         
 

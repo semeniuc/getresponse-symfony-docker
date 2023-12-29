@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Service\FormDataService;
+use App\Service\FormBitrixOptionsService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -19,9 +20,10 @@ class IndexController extends AbstractController
      * Main page
      */
     #[Route('/', name: 'index')]
-    public function index(Request $request, FormDataService $formDataService): Response
+    public function index(Request $request, FormDataService $formDataService, FormBitrixOptionsService $formBitrixOptionsService): Response
     {
         $data = $formDataService->getData('fc91abad728a1af85e86eff3d1e2424f');
+        // $options = $formBitrixOptionsService->getOptions('fc91abad728a1af85e86eff3d1e2424f');
 
         // Put data in form locale
         $formLocaleView = $this->createForm(type: LocaleType::class, options: [
@@ -35,21 +37,6 @@ class IndexController extends AbstractController
         // Put data in form settings
         $formSettingsView = $this->createForm(
             type: SettingsType::class,
-            // data: [
-            //     'api_key' => 'zlilo4vmja1trjye30sal1oeyqetv3gh',
-            //     'hook_url' => 'https://getresponse.beupsoft.pl/client=fc91abad728a1af85e86eff3d1e2424f',
-            //     'list' => 'fdTrn65J',
-            //     'pipeline' => 'pipline_3',
-            //     'events' => [
-            //         ['type' => 'event_1', 'stage' => 'stage_3'],
-            //         ['type' => 'event_3', 'stage' => 'stage_2'],
-            //     ],
-            //     'fields' => [
-            //         ['entity' => 1, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
-            //         ['entity' => 3, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
-            //         ['entity' => 4, 'bitrix' => 'field_1', 'getresponse' => 'field_1'],
-            //     ],
-            // ],
             data: $data,
             options: [
                 'list_choices' => [
