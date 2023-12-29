@@ -81,7 +81,7 @@ class FormDataService
             'hook_url'  => $hookUrl ?? '',
             'list'      => $section ? $section->getListId() : '',
             'pipeline'  => $section ? $section->getPipelineId() : '',
-            'fields'    => $fields ?? [[]],
+            'fields'    => $fields ?? [],
             'events'    => $events ?? [],
         ];
     }
