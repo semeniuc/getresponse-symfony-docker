@@ -47,15 +47,7 @@ class SettingsType extends AbstractType
                 'allow_delete' => true,
                 'delete_empty' => true,
             ])
-            ->add('submit', SubmitType::class)
-        ;
-
-        // Logging
-        dump([
-            'options' => $options,
-            'getOptions' => $builder->getOptions(),
-            'getFormConfig' => $builder->getFormConfig(),
-        ]);
+            ->add('submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
